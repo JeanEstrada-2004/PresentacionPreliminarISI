@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentación ISI - Lenguaje digital juvenil</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5f6c7b;
+      --paper: #f7f9fb;
+      --panel: rgba(255, 255, 255, 0.86);
+      --line: rgba(23, 32, 42, 0.12);
+      --teal: #0f766e;
+      --blue: #2563eb;
+      --amber: #c47f17;
+      --rose: #c2415d;
+      --green: #2f855a;
+      --shadow: 0 24px 70px rgba(20, 30, 45, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 12% 18%, rgba(15, 118, 110, 0.12), transparent 28%),
+        radial-gradient(circle at 84% 10%, rgba(37, 99, 235, 0.10), transparent 30%),
+        linear-gradient(135deg, #f8fbfd 0%, #eef4f8 58%, #f7f3ea 100%);
+    }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      isolation: isolate;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: clamp(26px, 5vw, 72px);
+      opacity: 0;
+      transform: translateX(34px) scale(0.985);
+      pointer-events: none;
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .slide.previous {
+      transform: translateX(-34px) scale(0.985);
+    }
+
+    .frame {
+      width: min(1120px, 100%);
+      min-height: min(680px, calc(100vh - 112px));
+      display: grid;
+      align-content: center;
+      gap: 28px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 980px;
+      font-size: clamp(42px, 6.2vw, 76px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: clamp(32px, 4.3vw, 56px);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      font-size: clamp(18px, 2vw, 25px);
+      line-height: 1.2;
+    }
+
+    p,
+    li {
+      font-size: clamp(18px, 1.7vw, 25px);
+      line-height: 1.48;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .kicker {
+      color: var(--teal);
+      font-size: clamp(13px, 1.3vw, 16px);
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .lead {
+      max-width: 900px;
+      color: #344253;
+      font-size: clamp(22px, 2.1vw, 31px);
+      line-height: 1.35;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: clamp(15px, 1.25vw, 18px);
+      line-height: 1.45;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: #263545;
+      font-size: clamp(14px, 1.15vw, 17px);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .note {
+      padding: clamp(22px, 3vw, 34px);
+      border-left: 7px solid var(--teal);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .bullets {
+      display: grid;
+      gap: 14px;
+    }
+
+    .bullets li {
+      position: relative;
+      padding-left: 28px;
+      color: #253445;
+    }
+
+    .bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 5px rgba(15, 118, 110, 0.12);
+    }
+
+    .metric {
+      display: grid;
+      gap: 8px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .metric strong {
+      color: var(--blue);
+      font-size: clamp(46px, 6vw, 78px);
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: clamp(16px, 1.4vw, 20px);
+      font-weight: 700;
+    }
+
+    .plane {
+      min-height: 250px;
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .plane .icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #edf7f5;
+      color: var(--teal);
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .plane:nth-child(2) .icon {
+      background: #fff4e2;
+      color: var(--amber);
+    }
+
+    .plane:nth-child(3) .icon {
+      background: #edf3ff;
+      color: var(--blue);
+    }
+
+    .question {
+      padding: clamp(24px, 4vw, 42px);
+      border-top: 8px solid var(--blue);
+    }
+
+    .objectives {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .objective-main {
+      padding: 26px;
+      background: #17324d;
+      color: #fff;
+      border-radius: 8px;
+      display: grid;
+      align-content: center;
+      gap: 12px;
+    }
+
+    .objective-main p {
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .objective-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .objective-list li,
+    .step,
+    .finding {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.78);
+      color: #263545;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .step {
+      min-height: 148px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .step strong {
+      color: var(--teal);
+      font-size: clamp(24px, 2.6vw, 34px);
+    }
+
+    .tag-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .tag {
+      min-height: 86px;
+      display: grid;
+      place-items: center;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.78);
+      color: #233449;
+      font-size: clamp(17px, 1.55vw, 22px);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .tag:nth-child(2n) {
+      background: rgba(237, 247, 245, 0.82);
+    }
+
+    .tag:nth-child(3n) {
+      background: rgba(255, 244, 226, 0.78);
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .quote-card {
+      padding: 26px;
+      border-radius: 8px;
+      display: grid;
+      gap: 16px;
+      align-content: center;
+    }
+
+    .quote-card:first-child {
+      background: #fbf2f3;
+      border: 1px solid rgba(194, 65, 93, 0.22);
+    }
+
+    .quote-card:last-child {
+      background: #eef7f3;
+      border: 1px solid rgba(47, 133, 90, 0.22);
+    }
+
+    .quote-card blockquote {
+      margin: 0;
+      color: #17202a;
+      font-size: clamp(24px, 2.2vw, 32px);
+      font-weight: 800;
+      line-height: 1.24;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .tool {
+      min-height: 120px;
+      padding: 18px;
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.80);
+    }
+
+    .tool strong {
+      font-size: clamp(18px, 1.6vw, 23px);
+    }
+
+    .tool span {
+      color: var(--muted);
+      font-size: clamp(14px, 1.15vw, 17px);
+      line-height: 1.35;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .risk-mark {
+      width: min(330px, 100%);
+      aspect-ratio: 1;
+      justify-self: center;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        conic-gradient(from 220deg, rgba(194, 65, 93, 0.95), rgba(196, 127, 23, 0.92), rgba(15, 118, 110, 0.92), rgba(37, 99, 235, 0.92), rgba(194, 65, 93, 0.95));
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .risk-mark span {
+      width: 76%;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(23, 32, 42, 0.78);
+      text-align: center;
+      font-size: clamp(24px, 2.8vw, 38px);
+      font-weight: 900;
+      line-height: 1.12;
+    }
+
+    .findings {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .finding {
+      min-height: 190px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+      border-top: 6px solid var(--teal);
+    }
+
+    .finding:nth-child(2) {
+      border-top-color: var(--blue);
+    }
+
+    .finding:nth-child(3) {
+      border-top-color: var(--amber);
+    }
+
+    .finding:nth-child(4) {
+      border-top-color: var(--rose);
+    }
+
+    .finding:nth-child(5) {
+      border-top-color: var(--green);
+    }
+
+    .finding strong {
+      font-size: clamp(24px, 2.4vw, 34px);
+    }
+
+    .discussion {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .axis {
+      min-height: 360px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-content: center;
+    }
+
+    .axis-row {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .axis-label {
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .axis-bar {
+      height: 18px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+    }
+
+    .axis-row:nth-child(2) .axis-bar {
+      width: 84%;
+      background: linear-gradient(90deg, var(--amber), var(--rose));
+    }
+
+    .axis-row:nth-child(3) .axis-bar {
+      width: 72%;
+      background: linear-gradient(90deg, var(--green), var(--teal));
+    }
+
+    .conclusion-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .conclusion {
+      min-height: 150px;
+      padding: 22px;
+      border-left: 7px solid var(--blue);
+      display: grid;
+      align-content: center;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .closing {
+      width: min(1000px, 100%);
+      padding: clamp(28px, 5vw, 58px);
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(23, 50, 77, 0.94), rgba(15, 118, 110, 0.92)),
+        #17324d;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .closing p {
+      font-size: clamp(28px, 3.9vw, 50px);
+      font-weight: 850;
+      line-height: 1.17;
+    }
+
+    .progress {
+      position: fixed;
+      right: clamp(18px, 3vw, 36px);
+      bottom: clamp(16px, 2.6vw, 30px);
+      z-index: 10;
+      min-width: 74px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      color: #283747;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(20, 30, 45, 0.10);
+    }
+
+    .progress-bar {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 11;
+      height: 5px;
+      width: 100%;
+      background: rgba(23, 32, 42, 0.10);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--teal), var(--blue), var(--amber));
+      transition: width 360ms ease;
+    }
+
+    .title-band {
+      width: fit-content;
+      max-width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      background: #17324d;
+      color: #fff;
+      font-size: clamp(15px, 1.25vw, 18px);
+      font-weight: 800;
+    }
+
+    .visual-line {
+      width: min(560px, 100%);
+      height: 9px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal), var(--blue), var(--amber), var(--rose));
+    }
+
+    @media (max-width: 900px) {
+      .slide {
+        padding: 28px 18px 52px;
+      }
+
+      .frame {
+        min-height: calc(100vh - 96px);
+        gap: 20px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .objectives,
+      .risk-grid,
+      .discussion,
+      .compare,
+      .conclusion-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flow,
+      .tools,
+      .tag-grid,
+      .findings {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .finding,
+      .plane,
+      .step,
+      .tool {
+        min-height: auto;
+      }
+
+      p,
+      li {
+        font-size: clamp(16px, 2.8vw, 20px);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .flow,
+      .tools,
+      .tag-grid,
+      .findings {
+        grid-template-columns: 1fr;
+      }
+
+      .chips {
+        gap: 8px;
+      }
+
+      .chip {
+        white-space: normal;
+      }
+
+      .axis-row {
+        grid-template-columns: 1fr;
+      }
+
+      .risk-mark {
+        width: min(240px, 100%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-live="polite">
+    <!-- 1. Portada -->
+    <section class="slide active" data-title="Portada">
+      <div class="frame">
+        <div class="kicker">Presentación ISI · versión preliminar</div>
+        <h1>Lenguaje digital juvenil, claridad emocional y análisis computacional del texto</h1>
+        <p class="lead">Avance de artículo de revisión</p>
+        <div class="visual-line" aria-hidden="true"></div>
+        <div class="chips">
+          <span class="chip">Lenguaje digital juvenil</span>
+          <span class="chip">Claridad emocional</span>
+          <span class="chip">NLP</span>
+          <span class="chip">Estudiantes universitarios</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Idea central -->
+    <section class="slide" data-title="Idea central">
+      <div class="frame grid-2">
+        <div class="stack">
+          <div class="kicker">Idea central del artículo</div>
+          <h2>El texto digital también puede revelar formas de autoexpresión.</h2>
+          <p class="lead">La revisión observa cómo el lenguaje digital juvenil contiene señales asociadas a claridad emocional, identidad y pertenencia.</p>
+        </div>
+        <div class="card note">
+          <h3>Límite clave</h3>
+          <p>No se afirma que un sistema pueda diagnosticar emociones desde el texto. El enfoque es analizar señales de manera responsable y contextual.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Introducción -->
+    <section class="slide" data-title="Introducción">
+      <div class="frame grid-2">
+        <div class="stack">
+          <div class="kicker">Introducción</div>
+          <h2>El lenguaje digital forma parte de la vida universitaria.</h2>
+          <p class="lead">No se reduce a emojis, jergas o abreviaciones: también organiza vínculos, dudas, identidad y emociones.</p>
+        </div>
+        <ul class="bullets card note">
+          <li>Expresa pertenencia y formas de relación.</li>
+          <li>Integra oralidad escrita y recursos visuales.</li>
+          <li>Puede convertirse en información procesable.</li>
+          <li>Requiere lectura cuidadosa del contexto.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Planteamiento del problema -->
+    <section class="slide" data-title="Problema">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Planteamiento del problema</div>
+          <h2>Tres planos suelen estudiarse por separado.</h2>
+        </div>
+        <div class="grid-3">
+          <article class="plane card">
+            <div class="icon">C</div>
+            <h3>Plano comunicativo</h3>
+            <p>Lenguaje digital juvenil, códigos de grupo, plataformas y estilos de interacción.</p>
+          </article>
+          <article class="plane card">
+            <div class="icon">E</div>
+            <h3>Plano emocional/reflexivo</h3>
+            <p>Claridad emocional, verbalización, diferenciación afectiva y alexitimia.</p>
+          </article>
+          <article class="plane card">
+            <div class="icon">N</div>
+            <h3>Plano computacional</h3>
+            <p>NLP, minería de texto y marcadores lingüísticos aplicados al análisis textual.</p>
+          </article>
+        </div>
+        <p class="small">Vacío principal: falta integrar estos planos en una misma lectura académica.</p>
+      </div>
+    </section>
+
+    <!-- 5. Pregunta y objetivos -->
+    <section class="slide" data-title="Pregunta y objetivos">
+      <div class="frame">
+        <div class="question card">
+          <div class="kicker">Pregunta de investigación</div>
+          <p class="lead">¿Qué patrones del lenguaje digital juvenil y señales asociadas a claridad emocional han sido reportados, y cómo se han analizado computacionalmente?</p>
+        </div>
+        <div class="objectives">
+          <div class="objective-main">
+            <h3>Objetivo general</h3>
+            <p>Mapear conceptos, señales, métodos y límites para comprender el análisis computacional del lenguaje digital juvenil.</p>
+          </div>
+          <ul class="objective-list">
+            <li>Identificar patrones de lenguaje digital juvenil.</li>
+            <li>Reconocer señales vinculadas a claridad emocional.</li>
+            <li>Describir métodos computacionales usados en la literatura.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Método -->
+    <section class="slide" data-title="Método">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Método</div>
+          <h2>Revisión de alcance para mapear un campo disperso.</h2>
+        </div>
+        <div class="flow">
+          <article class="step">
+            <strong>1</strong>
+            <h3>Búsqueda inicial</h3>
+            <p>Consulta preliminar en Scopus.</p>
+          </article>
+          <article class="step">
+            <strong>345</strong>
+            <h3>Registros</h3>
+            <p>Base inicial de documentos encontrados.</p>
+          </article>
+          <article class="step">
+            <strong>3</strong>
+            <h3>Filtros</h3>
+            <p>Título, resumen y pertinencia temática.</p>
+          </article>
+          <article class="step">
+            <strong>✓</strong>
+            <h3>Criterios</h3>
+            <p>Inclusión, exclusión y justificación del alcance.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Revisión I -->
+    <section class="slide" data-title="Lenguaje digital juvenil">
+      <div class="frame grid-2">
+        <div class="stack">
+          <div class="kicker">Revisión de literatura I</div>
+          <h2>Lenguaje digital juvenil</h2>
+          <p class="lead">No es escritura deficiente: funciona con reglas propias, ajustadas a plataformas, grupos y situaciones.</p>
+        </div>
+        <ul class="bullets card note">
+          <li>Oralidad escrita y respuestas breves.</li>
+          <li>Jergas, emojis y abreviaciones.</li>
+          <li>Adaptación a normas de cada plataforma.</li>
+          <li>Relación con identidad y autoexpresión.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8. Revisión II -->
+    <section class="slide" data-title="Claridad emocional">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Revisión de literatura II</div>
+          <h2>Claridad emocional y alexitimia</h2>
+        </div>
+        <div class="compare">
+          <article class="quote-card">
+            <span class="title-band">Expresión vaga</span>
+            <blockquote>“Me siento mal.”</blockquote>
+            <p class="small">La emoción aparece poco diferenciada y con baja precisión verbal.</p>
+          </article>
+          <article class="quote-card">
+            <span class="title-band">Expresión elaborada</span>
+            <blockquote>“Estoy frustrado y ansioso por no avanzar.”</blockquote>
+            <p class="small">Hay mayor reconocimiento, diferenciación y verbalización de lo sentido.</p>
+          </article>
+        </div>
+        <p class="small">La alexitimia se usa como concepto de referencia, no como diagnóstico individual.</p>
+      </div>
+    </section>
+
+    <!-- 9. Revisión III -->
+    <section class="slide" data-title="Marcadores lingüísticos">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Revisión de literatura III</div>
+          <h2>Marcadores lingüísticos</h2>
+          <p class="lead">Son señales candidatas para el análisis, no pruebas definitivas sobre el estado emocional.</p>
+        </div>
+        <div class="tag-grid">
+          <div class="tag">Pronombres</div>
+          <div class="tag">Palabras emocionales</div>
+          <div class="tag">Longitud</div>
+          <div class="tag">Tiempo verbal</div>
+          <div class="tag">Vaguedad</div>
+          <div class="tag">Coherencia narrativa</div>
+          <div class="tag">Incertidumbre</div>
+          <div class="tag">Riqueza léxica</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Revisión IV -->
+    <section class="slide" data-title="Análisis computacional">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Revisión de literatura IV</div>
+          <h2>Análisis computacional y sistemas de apoyo</h2>
+          <p class="lead">El foco no es comparar modelos, sino entender cómo el texto se convierte en datos analizables.</p>
+        </div>
+        <div class="tools">
+          <article class="tool"><strong>Sentimientos</strong><span>Polaridad y tono general del texto.</span></article>
+          <article class="tool"><strong>Emociones</strong><span>Categorías afectivas expresadas en lenguaje.</span></article>
+          <article class="tool"><strong>Minería de texto</strong><span>Patrones, frecuencia y agrupamientos.</span></article>
+          <article class="tool"><strong>LIWC</strong><span>Diccionarios psicolingüísticos.</span></article>
+          <article class="tool"><strong>Clasificación</strong><span>Asignación de etiquetas entrenadas.</span></article>
+          <article class="tool"><strong>Embeddings</strong><span>Representación semántica del texto.</span></article>
+          <article class="tool"><strong>Transformers</strong><span>Modelos contextuales de lenguaje.</span></article>
+          <article class="tool"><strong>Journaling</strong><span>Registro digital para reflexión personal.</span></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Ética y límites -->
+    <section class="slide" data-title="Ética y límites">
+      <div class="frame risk-grid">
+        <div class="risk-mark" aria-hidden="true"><span>Ética<br>y límites</span></div>
+        <div class="stack">
+          <div class="kicker">Ética y límites</div>
+          <h2>El texto personal puede ser sensible.</h2>
+          <ul class="bullets">
+            <li>Riesgos de sesgo, error e interpretación fuera de contexto.</li>
+            <li>Necesidad de consentimiento, privacidad y transparencia.</li>
+            <li>Evitar lecturas clínicas simplificadas.</li>
+            <li>Plantear sistemas como apoyo reflexivo, no diagnóstico.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Hallazgos preliminares -->
+    <section class="slide" data-title="Hallazgos">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Hallazgos preliminares</div>
+          <h2>Cinco ideas que orientan el avance.</h2>
+        </div>
+        <div class="findings">
+          <article class="finding"><strong>1</strong><p>El campo está fragmentado.</p></article>
+          <article class="finding"><strong>2</strong><p>El lenguaje digital juvenil tiene reglas propias.</p></article>
+          <article class="finding"><strong>3</strong><p>La claridad emocional es útil, pero requiere cuidado.</p></article>
+          <article class="finding"><strong>4</strong><p>Los marcadores lingüísticos son señales candidatas.</p></article>
+          <article class="finding"><strong>5</strong><p>El NLP apoya el análisis sin reemplazar el contexto humano.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Discusión -->
+    <section class="slide" data-title="Discusión">
+      <div class="frame discussion">
+        <div class="axis card note">
+          <div class="axis-row">
+            <span class="axis-label">Tecnología</span>
+            <div class="axis-bar"></div>
+          </div>
+          <div class="axis-row">
+            <span class="axis-label">Lenguaje</span>
+            <div class="axis-bar"></div>
+          </div>
+          <div class="axis-row">
+            <span class="axis-label">Experiencia</span>
+            <div class="axis-bar"></div>
+          </div>
+        </div>
+        <div class="stack">
+          <div class="kicker">Discusión</div>
+          <h2>Conectar tecnología y experiencia humana.</h2>
+          <ul class="bullets">
+            <li>El lenguaje digital juvenil no debe verse como ruido.</li>
+            <li>La claridad emocional no debe reducirse a una etiqueta clínica.</li>
+            <li>El NLP debe funcionar como herramienta de apoyo.</li>
+            <li>La autoridad interpretativa no puede depender solo del modelo.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. Conclusiones -->
+    <section class="slide" data-title="Conclusiones">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Conclusiones</div>
+          <h2>El tema es viable como revisión.</h2>
+        </div>
+        <div class="conclusion-grid">
+          <article class="conclusion card"><p>La revisión de alcance es adecuada para mapear un tema disperso.</p></article>
+          <article class="conclusion card"><p>El aporte está en ordenar conceptos, señales, métodos y límites.</p></article>
+          <article class="conclusion card"><p>El análisis debe mantener una lectura contextual y responsable.</p></article>
+          <article class="conclusion card"><p>Una etapa posterior podría diseñar un sistema de apoyo reflexivo sustentado en evidencia.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. Cierre -->
+    <section class="slide" data-title="Cierre">
+      <div class="closing">
+        <div class="kicker" style="color: rgba(255,255,255,0.76); margin-bottom: 20px;">Cierre</div>
+        <p>“El objetivo no es diagnosticar emociones desde el texto, sino analizar cómo el lenguaje digital juvenil puede aportar señales útiles para la reflexión y el análisis computacional responsable.”</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="progress" id="progress">1 / 15</div>
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <script>
+    // Navegación simple de presentación: solo flechas izquierda y derecha.
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const progress = document.getElementById("progress");
+    const progressFill = document.getElementById("progressFill");
+    let currentSlide = 0;
+
+    function showSlide(nextIndex) {
+      const boundedIndex = Math.max(0, Math.min(nextIndex, slides.length - 1));
+      if (boundedIndex === currentSlide) return;
+
+      const direction = boundedIndex > currentSlide ? "forward" : "backward";
+      slides[currentSlide].classList.remove("active");
+      slides[currentSlide].classList.toggle("previous", direction === "forward");
+
+      currentSlide = boundedIndex;
+      slides[currentSlide].classList.remove("previous");
+      slides[currentSlide].classList.add("active");
+      updateProgress();
+    }
+
+    function updateProgress() {
+      progress.textContent = `${currentSlide + 1} / ${slides.length}`;
+      progressFill.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+      document.title = `${currentSlide + 1}/${slides.length} · Presentación ISI`;
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        showSlide(currentSlide + 1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        showSlide(currentSlide - 1);
+      }
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>

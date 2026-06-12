@@ -55,20 +55,25 @@
       place-items: center;
       padding: clamp(26px, 5vw, 72px);
       opacity: 0;
-      transform: translateX(34px) scale(0.985);
+      filter: blur(8px);
+      transform: translateX(44px) scale(0.982);
       pointer-events: none;
-      transition: opacity 520ms ease, transform 520ms ease;
+      transition:
+        opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 620ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .slide.active {
       opacity: 1;
+      filter: blur(0);
       transform: translateX(0) scale(1);
       pointer-events: auto;
       z-index: 2;
     }
 
     .slide.previous {
-      transform: translateX(-34px) scale(0.985);
+      transform: translateX(-44px) scale(0.982);
     }
 
     .frame {
@@ -604,6 +609,192 @@
       height: 9px;
       border-radius: 999px;
       background: linear-gradient(90deg, var(--teal), var(--blue), var(--amber), var(--rose));
+      transform-origin: left center;
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes softScaleIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes lineDraw {
+      from {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      to {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes pulseMark {
+      0% {
+        transform: scale(0.94);
+        box-shadow: 0 0 0 0 rgba(15, 118, 110, 0.26), var(--shadow);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 20px rgba(15, 118, 110, 0), var(--shadow);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: var(--shadow);
+      }
+    }
+
+    .slide.active .kicker,
+    .slide.active h1,
+    .slide.active h2,
+    .slide.active .lead,
+    .slide.active .hero-meta,
+    .slide.active .small {
+      animation: riseIn 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .slide.active h1,
+    .slide.active h2 {
+      animation-delay: 90ms;
+    }
+
+    .slide.active .lead {
+      animation-delay: 170ms;
+    }
+
+    .slide.active .hero-meta,
+    .slide.active .small {
+      animation-delay: 250ms;
+    }
+
+    .slide.active .visual-line {
+      animation: lineDraw 760ms cubic-bezier(0.22, 1, 0.36, 1) 250ms both;
+    }
+
+    .slide.active .card,
+    .slide.active .plane,
+    .slide.active .step,
+    .slide.active .tag,
+    .slide.active .tool,
+    .slide.active .finding,
+    .slide.active .review-item,
+    .slide.active .stat-card,
+    .slide.active .model-step,
+    .slide.active .mini-row,
+    .slide.active .reference-cloud span,
+    .slide.active .conclusion {
+      animation: softScaleIn 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .slide.active .risk-mark {
+      animation: pulseMark 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .slide.active .grid-3 > *:nth-child(1),
+    .slide.active .flow > *:nth-child(1),
+    .slide.active .tag-grid > *:nth-child(1),
+    .slide.active .tools > *:nth-child(1),
+    .slide.active .findings > *:nth-child(1),
+    .slide.active .review-grid > *:nth-child(1),
+    .slide.active .stat-grid > *:nth-child(1),
+    .slide.active .model > *:nth-child(1),
+    .slide.active .mini-table > *:nth-child(1),
+    .slide.active .reference-cloud span:nth-child(1) {
+      animation-delay: 120ms;
+    }
+
+    .slide.active .grid-3 > *:nth-child(2),
+    .slide.active .flow > *:nth-child(2),
+    .slide.active .tag-grid > *:nth-child(2),
+    .slide.active .tools > *:nth-child(2),
+    .slide.active .findings > *:nth-child(2),
+    .slide.active .review-grid > *:nth-child(2),
+    .slide.active .stat-grid > *:nth-child(2),
+    .slide.active .model > *:nth-child(2),
+    .slide.active .mini-table > *:nth-child(2),
+    .slide.active .reference-cloud span:nth-child(2) {
+      animation-delay: 180ms;
+    }
+
+    .slide.active .grid-3 > *:nth-child(3),
+    .slide.active .flow > *:nth-child(3),
+    .slide.active .tag-grid > *:nth-child(3),
+    .slide.active .tools > *:nth-child(3),
+    .slide.active .findings > *:nth-child(3),
+    .slide.active .review-grid > *:nth-child(3),
+    .slide.active .stat-grid > *:nth-child(3),
+    .slide.active .model > *:nth-child(3),
+    .slide.active .mini-table > *:nth-child(3),
+    .slide.active .reference-cloud span:nth-child(3) {
+      animation-delay: 240ms;
+    }
+
+    .slide.active .flow > *:nth-child(4),
+    .slide.active .tag-grid > *:nth-child(4),
+    .slide.active .tools > *:nth-child(4),
+    .slide.active .findings > *:nth-child(4),
+    .slide.active .review-grid > *:nth-child(4),
+    .slide.active .stat-grid > *:nth-child(4),
+    .slide.active .model > *:nth-child(4),
+    .slide.active .mini-table > *:nth-child(4),
+    .slide.active .reference-cloud span:nth-child(4) {
+      animation-delay: 300ms;
+    }
+
+    .slide.active .tag-grid > *:nth-child(n + 5),
+    .slide.active .tools > *:nth-child(n + 5),
+    .slide.active .findings > *:nth-child(n + 5),
+    .slide.active .model > *:nth-child(n + 5),
+    .slide.active .mini-table > *:nth-child(n + 5),
+    .slide.active .reference-cloud span:nth-child(n + 5) {
+      animation-delay: 360ms;
+    }
+
+    .plane,
+    .step,
+    .tag,
+    .tool,
+    .finding,
+    .review-item,
+    .stat-card,
+    .model-step,
+    .reference-cloud span,
+    .conclusion {
+      transition:
+        transform 220ms ease,
+        box-shadow 220ms ease,
+        border-color 220ms ease;
+    }
+
+    .plane:hover,
+    .step:hover,
+    .tag:hover,
+    .tool:hover,
+    .finding:hover,
+    .review-item:hover,
+    .stat-card:hover,
+    .model-step:hover,
+    .reference-cloud span:hover,
+    .conclusion:hover {
+      transform: translateY(-3px);
+      border-color: rgba(15, 118, 110, 0.28);
+      box-shadow: 0 16px 42px rgba(20, 30, 45, 0.12);
     }
 
     .hero-meta {
@@ -848,6 +1039,21 @@
         width: min(240px, 100%);
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+
+      .slide {
+        filter: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1080,7 +1286,7 @@
 
     <!-- 13. Extracción y síntesis -->
     <section class="slide" data-title="Síntesis">
-      <div class="frame grid-2">
+      <div class="frame">
         <div class="stack">
           <div class="kicker">Extracción y síntesis de datos</div>
           <h2>La revisión priorizó convergencias, señales candidatas, técnicas, límites y brechas.</h2>

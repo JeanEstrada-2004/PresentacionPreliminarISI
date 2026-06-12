@@ -606,13 +606,179 @@
       background: linear-gradient(90deg, var(--teal), var(--blue), var(--amber), var(--rose));
     }
 
+    .hero-meta {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: clamp(15px, 1.25vw, 18px);
+      font-weight: 700;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat-card {
+      min-height: 150px;
+      padding: 20px;
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.80);
+    }
+
+    .stat-card strong {
+      color: var(--blue);
+      font-size: clamp(34px, 4.6vw, 60px);
+      line-height: 1;
+    }
+
+    .stat-card span {
+      color: var(--muted);
+      font-size: clamp(14px, 1.2vw, 17px);
+      font-weight: 750;
+      line-height: 1.35;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .review-item {
+      min-height: 140px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.80);
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .review-item strong {
+      color: var(--teal);
+      font-size: clamp(24px, 2.4vw, 34px);
+    }
+
+    .mini-table {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-row {
+      display: grid;
+      grid-template-columns: 0.72fr 0.42fr 0.5fr 1.35fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .mini-row > span {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.78);
+      color: #263545;
+      font-size: clamp(13px, 1.05vw, 16px);
+      line-height: 1.3;
+      font-weight: 650;
+    }
+
+    .mini-row.header > span {
+      background: #17324d;
+      color: #fff;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: clamp(11px, 0.95vw, 13px);
+    }
+
+    .two-column-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .model {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .model-step {
+      min-height: 210px;
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--teal);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.80);
+    }
+
+    .model-step:nth-child(2) {
+      border-top-color: var(--blue);
+    }
+
+    .model-step:nth-child(3) {
+      border-top-color: var(--amber);
+    }
+
+    .model-step:nth-child(4) {
+      border-top-color: var(--rose);
+    }
+
+    .model-step:nth-child(5) {
+      border-top-color: var(--green);
+    }
+
+    .model-step strong {
+      font-size: clamp(22px, 2vw, 30px);
+    }
+
+    .model-step h3 {
+      font-size: clamp(18px, 1.45vw, 22px);
+      overflow-wrap: anywhere;
+    }
+
+    .model-step p {
+      font-size: clamp(14px, 1.15vw, 17px);
+    }
+
+    .reference-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .reference-cloud span {
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.78);
+      color: #263545;
+      font-size: clamp(13px, 1.05vw, 16px);
+      font-weight: 750;
+    }
+
     @media (max-width: 900px) {
       .slide {
         padding: 28px 18px 52px;
+        place-items: start center;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .frame {
         min-height: calc(100vh - 96px);
+        align-content: start;
         gap: 20px;
       }
 
@@ -622,21 +788,32 @@
       .risk-grid,
       .discussion,
       .compare,
-      .conclusion-grid {
+      .conclusion-grid,
+      .stat-grid,
+      .review-grid,
+      .two-column-list {
         grid-template-columns: 1fr;
       }
 
       .flow,
       .tools,
       .tag-grid,
-      .findings {
+      .findings,
+      .model {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .mini-row {
+        grid-template-columns: 1fr;
       }
 
       .finding,
       .plane,
       .step,
-      .tool {
+      .tool,
+      .model-step,
+      .stat-card,
+      .review-item {
         min-height: auto;
       }
 
@@ -650,7 +827,8 @@
       .flow,
       .tools,
       .tag-grid,
-      .findings {
+      .findings,
+      .model {
         grid-template-columns: 1fr;
       }
 
@@ -677,304 +855,539 @@
     <!-- 1. Portada -->
     <section class="slide active" data-title="Portada">
       <div class="frame">
-        <div class="kicker">Presentación ISI · versión preliminar</div>
-        <h1>Lenguaje digital juvenil, claridad emocional y análisis computacional del texto</h1>
-        <p class="lead">Avance de artículo de revisión</p>
+        <div class="kicker">Investigación de Sistemas de Información · versión final</div>
+        <h1>Lenguaje digital juvenil y claridad emocional</h1>
+        <p class="lead">Revisión de alcance de señales lingüísticas para análisis computacional en estudiantes universitarios.</p>
         <div class="visual-line" aria-hidden="true"></div>
-        <div class="chips">
-          <span class="chip">Lenguaje digital juvenil</span>
-          <span class="chip">Claridad emocional</span>
-          <span class="chip">NLP</span>
-          <span class="chip">Estudiantes universitarios</span>
+        <div class="hero-meta">
+          <span>Universidad de San Martín de Porres · Facultad de Ingeniería y Arquitectura</span>
+          <span>Estudiante: Jean Carlos Estrada Barrientos · Docente: Ing. Guido Anco Chambilla</span>
+          <span>Arequipa, Perú · 2026</span>
         </div>
       </div>
     </section>
 
-    <!-- 2. Idea central -->
-    <section class="slide" data-title="Idea central">
+    <!-- 2. Resumen -->
+    <section class="slide" data-title="Resumen">
       <div class="frame grid-2">
         <div class="stack">
-          <div class="kicker">Idea central del artículo</div>
-          <h2>El texto digital también puede revelar formas de autoexpresión.</h2>
-          <p class="lead">La revisión observa cómo el lenguaje digital juvenil contiene señales asociadas a claridad emocional, identidad y pertenencia.</p>
+          <div class="kicker">Resumen del artículo</div>
+          <h2>El lenguaje digital juvenil puede leerse como señal exploratoria, no como diagnóstico.</h2>
+          <p class="lead">La revisión identifica patrones de escritura online, señales de autoexpresión y técnicas computacionales aplicables al análisis textual.</p>
         </div>
         <div class="card note">
-          <h3>Límite clave</h3>
-          <p>No se afirma que un sistema pueda diagnosticar emociones desde el texto. El enfoque es analizar señales de manera responsable y contextual.</p>
+          <h3>Aporte central</h3>
+          <p>Ordenar evidencia dispersa para proponer sistemas de apoyo reflexivo basados en texto, con privacidad, transparencia y límites éticos explícitos.</p>
         </div>
       </div>
     </section>
 
-    <!-- 3. Introducción -->
+    <!-- 3. Palabras clave -->
+    <section class="slide" data-title="Palabras clave">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Palabras clave</div>
+          <h2>Seis conceptos articulan la revisión.</h2>
+        </div>
+        <div class="tag-grid">
+          <div class="tag">Lenguaje digital juvenil</div>
+          <div class="tag">Claridad emocional</div>
+          <div class="tag">Alexitimia</div>
+          <div class="tag">Procesamiento de lenguaje natural</div>
+          <div class="tag">Estudiantes universitarios</div>
+          <div class="tag">Revisión de alcance</div>
+          <div class="tag">Autoexpresión</div>
+          <div class="tag">Sistemas reflexivos</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Introducción -->
     <section class="slide" data-title="Introducción">
       <div class="frame grid-2">
         <div class="stack">
           <div class="kicker">Introducción</div>
-          <h2>El lenguaje digital forma parte de la vida universitaria.</h2>
-          <p class="lead">No se reduce a emojis, jergas o abreviaciones: también organiza vínculos, dudas, identidad y emociones.</p>
+          <h2>La vida universitaria produce texto todos los días.</h2>
+          <p class="lead">Chats, redes sociales, plataformas educativas, formularios abiertos, diarios digitales y sistemas conversacionales generan escritura breve, informal, multimodal y contextual.</p>
         </div>
         <ul class="bullets card note">
-          <li>Expresa pertenencia y formas de relación.</li>
-          <li>Integra oralidad escrita y recursos visuales.</li>
-          <li>Puede convertirse en información procesable.</li>
-          <li>Requiere lectura cuidadosa del contexto.</li>
+          <li>No debe evaluarse como redacción académica formal.</li>
+          <li>Mezcla recursos léxicos, gráficos, pragmáticos e identitarios.</li>
+          <li>Permite observar pertenencia, tono, identidad y autoexpresión.</li>
+          <li>Puede convertirse en información textual procesable.</li>
         </ul>
       </div>
     </section>
 
-    <!-- 4. Planteamiento del problema -->
+    <!-- 5. Problema -->
     <section class="slide" data-title="Problema">
       <div class="frame">
         <div class="stack">
           <div class="kicker">Planteamiento del problema</div>
-          <h2>Tres planos suelen estudiarse por separado.</h2>
+          <h2>Aún no está claro qué patrones pueden sostenerse como señales candidatas.</h2>
+          <p class="lead">El problema no es “leer emociones” directamente, sino revisar qué evidencia existe, qué se puede sostener y qué límites no deben pasarse.</p>
         </div>
         <div class="grid-3">
           <article class="plane card">
             <div class="icon">C</div>
-            <h3>Plano comunicativo</h3>
-            <p>Lenguaje digital juvenil, códigos de grupo, plataformas y estilos de interacción.</p>
+            <h3>Comunicativo</h3>
+            <p>Textismos, oralidad escrita, emojis, stickers, code-switching y adaptación al contexto.</p>
           </article>
           <article class="plane card">
             <div class="icon">E</div>
-            <h3>Plano emocional/reflexivo</h3>
-            <p>Claridad emocional, verbalización, diferenciación afectiva y alexitimia.</p>
+            <h3>Emocional</h3>
+            <p>Claridad emocional, alexitimia, diferenciación emocional, affect labeling y autorrevelación.</p>
           </article>
           <article class="plane card">
             <div class="icon">N</div>
-            <h3>Plano computacional</h3>
-            <p>NLP, minería de texto y marcadores lingüísticos aplicados al análisis textual.</p>
+            <h3>Computacional</h3>
+            <p>Minería de texto, análisis de sentimientos, diccionarios, embeddings, transformers y LLM.</p>
           </article>
         </div>
-        <p class="small">Vacío principal: falta integrar estos planos en una misma lectura académica.</p>
       </div>
     </section>
 
-    <!-- 5. Pregunta y objetivos -->
+    <!-- 6. Delimitación -->
+    <section class="slide" data-title="Delimitación">
+      <div class="frame risk-grid">
+        <div class="risk-mark" aria-hidden="true"><span>No<br>clínico</span></div>
+        <div class="stack">
+          <div class="kicker">Alcance del estudio</div>
+          <h2>La revisión se delimita como no diagnóstica.</h2>
+          <ul class="bullets">
+            <li>No propone diagnosticar emociones, trastornos ni estados internos.</li>
+            <li>Ordena evidencia sobre patrones, señales, técnicas y límites.</li>
+            <li>Evalúa la posibilidad de futuros sistemas de apoyo reflexivo.</li>
+            <li>Defiende una lectura contextual, responsable y transparente.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Pregunta y objetivos -->
     <section class="slide" data-title="Pregunta y objetivos">
       <div class="frame">
         <div class="question card">
-          <div class="kicker">Pregunta de investigación</div>
-          <p class="lead">¿Qué patrones del lenguaje digital juvenil y señales asociadas a claridad emocional han sido reportados, y cómo se han analizado computacionalmente?</p>
+          <div class="kicker">Pregunta general</div>
+          <p class="lead">¿Qué patrones del lenguaje digital juvenil, señales de autoexpresión y elementos asociados a claridad emocional han sido reportados, y cómo han sido abordados mediante técnicas computacionales de análisis textual?</p>
         </div>
         <div class="objectives">
           <div class="objective-main">
             <h3>Objetivo general</h3>
-            <p>Mapear conceptos, señales, métodos y límites para comprender el análisis computacional del lenguaje digital juvenil.</p>
+            <p>Identificar y sintetizar literatura científica sobre patrones del lenguaje digital juvenil y señales lingüísticas asociadas a autoexpresión, claridad emocional o dificultad de verbalización.</p>
           </div>
           <ul class="objective-list">
-            <li>Identificar patrones de lenguaje digital juvenil.</li>
-            <li>Reconocer señales vinculadas a claridad emocional.</li>
-            <li>Describir métodos computacionales usados en la literatura.</li>
+            <li>Caracterizar el fenómeno comunicativo juvenil.</li>
+            <li>Vincular lenguaje, identidad, self-disclosure y claridad emocional.</li>
+            <li>Conectar el tema con NLP y análisis textual.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- 6. Método -->
-    <section class="slide" data-title="Método">
+    <!-- 8. Preguntas de revisión -->
+    <section class="slide" data-title="Preguntas de revisión">
       <div class="frame">
         <div class="stack">
-          <div class="kicker">Método</div>
-          <h2>Revisión de alcance para mapear un campo disperso.</h2>
+          <div class="kicker">Preguntas de revisión</div>
+          <h2>Cuatro preguntas estructuran los resultados.</h2>
         </div>
-        <div class="flow">
-          <article class="step">
-            <strong>1</strong>
-            <h3>Búsqueda inicial</h3>
-            <p>Consulta preliminar en Scopus.</p>
-          </article>
-          <article class="step">
-            <strong>345</strong>
-            <h3>Registros</h3>
-            <p>Base inicial de documentos encontrados.</p>
-          </article>
-          <article class="step">
-            <strong>3</strong>
-            <h3>Filtros</h3>
-            <p>Título, resumen y pertinencia temática.</p>
-          </article>
-          <article class="step">
-            <strong>✓</strong>
-            <h3>Criterios</h3>
-            <p>Inclusión, exclusión y justificación del alcance.</p>
-          </article>
+        <div class="review-grid">
+          <article class="review-item"><strong>PI1</strong><h3>Patrones digitales</h3><p>¿Qué patrones del lenguaje digital juvenil se reportan en la literatura?</p></article>
+          <article class="review-item"><strong>PI2</strong><h3>Autoexpresión</h3><p>¿Qué señales se relacionan con autoexpresión, claridad emocional o dificultad de verbalización?</p></article>
+          <article class="review-item"><strong>PI3</strong><h3>Técnicas computacionales</h3><p>¿Qué técnicas se han usado para analizar estos textos?</p></article>
+          <article class="review-item"><strong>PI4</strong><h3>Límites</h3><p>¿Qué límites metodológicos y éticos aparecen en los estudios?</p></article>
         </div>
       </div>
     </section>
 
-    <!-- 7. Revisión I -->
-    <section class="slide" data-title="Lenguaje digital juvenil">
+    <!-- 9. Método -->
+    <section class="slide" data-title="Método">
       <div class="frame grid-2">
         <div class="stack">
-          <div class="kicker">Revisión de literatura I</div>
-          <h2>Lenguaje digital juvenil</h2>
-          <p class="lead">No es escritura deficiente: funciona con reglas propias, ajustadas a plataformas, grupos y situaciones.</p>
+          <div class="kicker">Método</div>
+          <h2>Revisión de alcance con síntesis temática.</h2>
+          <p class="lead">La estrategia permite mapear conceptos, tipos de evidencia, métodos, patrones y vacíos en un tema interdisciplinario.</p>
         </div>
         <ul class="bullets card note">
-          <li>Oralidad escrita y respuestas breves.</li>
-          <li>Jergas, emojis y abreviaciones.</li>
-          <li>Adaptación a normas de cada plataforma.</li>
-          <li>Relación con identidad y autoexpresión.</li>
+          <li>Referencia metodológica: PRISMA-ScR y revisión de alcance.</li>
+          <li>No se presenta como metaanálisis ni PRISMA completo.</li>
+          <li>No hubo protocolo previo ni doble cribado independiente.</li>
+          <li>El objetivo fue académico y de consolidación para el curso.</li>
         </ul>
       </div>
     </section>
 
-    <!-- 8. Revisión II -->
-    <section class="slide" data-title="Claridad emocional">
+    <!-- 10. Estrategia de búsqueda -->
+    <section class="slide" data-title="Estrategia">
       <div class="frame">
         <div class="stack">
-          <div class="kicker">Revisión de literatura II</div>
-          <h2>Claridad emocional y alexitimia</h2>
+          <div class="kicker">Base de datos, periodo y estrategia</div>
+          <h2>Búsquedas en Scopus entre el 20 de abril y el 11 de junio de 2026.</h2>
         </div>
-        <div class="compare">
-          <article class="quote-card">
-            <span class="title-band">Expresión vaga</span>
-            <blockquote>“Me siento mal.”</blockquote>
-            <p class="small">La emoción aparece poco diferenciada y con baja precisión verbal.</p>
-          </article>
-          <article class="quote-card">
-            <span class="title-band">Expresión elaborada</span>
-            <blockquote>“Estoy frustrado y ansioso por no avanzar.”</blockquote>
-            <p class="small">Hay mayor reconocimiento, diferenciación y verbalización de lo sentido.</p>
-          </article>
+        <div class="stat-grid">
+          <article class="stat-card"><strong>38</strong><span>cadenas de búsqueda organizadas por división temática</span></article>
+          <article class="stat-card"><strong>6</strong><span>divisiones: comunicación, emoción, marcadores, NLP y sistemas</span></article>
+          <article class="stat-card"><strong>20,598</strong><span>registros brutos visibles, sin descontar duplicados</span></article>
+          <article class="stat-card"><strong>88</strong><span>estudios potencialmente relevantes en el corpus inicial</span></article>
         </div>
-        <p class="small">La alexitimia se usa como concepto de referencia, no como diagnóstico individual.</p>
+        <p class="small">Se usó TITLE-ABS-KEY y filtros por año, tipo de documento, idioma y áreas temáticas según la pertinencia de cada búsqueda.</p>
       </div>
     </section>
 
-    <!-- 9. Revisión III -->
-    <section class="slide" data-title="Marcadores lingüísticos">
+    <!-- 11. Divisiones de búsqueda -->
+    <section class="slide" data-title="Divisiones">
       <div class="frame">
         <div class="stack">
-          <div class="kicker">Revisión de literatura III</div>
-          <h2>Marcadores lingüísticos</h2>
-          <p class="lead">Son señales candidatas para el análisis, no pruebas definitivas sobre el estado emocional.</p>
+          <div class="kicker">Distribución de búsquedas</div>
+          <h2>La búsqueda cubrió el fenómeno desde seis entradas temáticas.</h2>
         </div>
-        <div class="tag-grid">
-          <div class="tag">Pronombres</div>
-          <div class="tag">Palabras emocionales</div>
-          <div class="tag">Longitud</div>
-          <div class="tag">Tiempo verbal</div>
-          <div class="tag">Vaguedad</div>
-          <div class="tag">Coherencia narrativa</div>
-          <div class="tag">Incertidumbre</div>
-          <div class="tag">Riqueza léxica</div>
+        <div class="mini-table">
+          <div class="mini-row header"><span>División</span><span>Búsquedas</span><span>Registros</span><span>Propósito</span></div>
+          <div class="mini-row"><span>Lenguaje digital juvenil</span><span>5</span><span>1,333</span><span>Textismos, redes, emojis y recursos paralingüísticos.</span></div>
+          <div class="mini-row"><span>Autoexpresión e identidad digital</span><span>5</span><span>270</span><span>Presentación personal, self-disclosure y bienestar.</span></div>
+          <div class="mini-row"><span>Claridad emocional y alexitimia</span><span>6</span><span>2,566</span><span>Conciencia emocional, diferenciación y verbalización.</span></div>
+          <div class="mini-row"><span>Marcadores lingüísticos</span><span>7</span><span>3,604</span><span>Pronombres, LIWC, SEANCE, distancia y señales textuales.</span></div>
+          <div class="mini-row"><span>NLP y análisis computacional</span><span>7</span><span>8,581</span><span>Feedback, reflexiones, respuestas abiertas y modelos.</span></div>
+          <div class="mini-row"><span>Sistemas reflexivos y ética</span><span>8</span><span>4,244</span><span>Journaling, chatbots, bienestar y límites éticos.</span></div>
         </div>
       </div>
     </section>
 
-    <!-- 10. Revisión IV -->
-    <section class="slide" data-title="Análisis computacional">
+    <!-- 12. Criterios -->
+    <section class="slide" data-title="Criterios">
       <div class="frame">
         <div class="stack">
-          <div class="kicker">Revisión de literatura IV</div>
-          <h2>Análisis computacional y sistemas de apoyo</h2>
-          <p class="lead">El foco no es comparar modelos, sino entender cómo el texto se convierte en datos analizables.</p>
+          <div class="kicker">Criterios de inclusión y exclusión</div>
+          <h2>El corpus se acotó por población, lenguaje, emoción, técnica y tipo de fuente.</h2>
         </div>
-        <div class="tools">
-          <article class="tool"><strong>Sentimientos</strong><span>Polaridad y tono general del texto.</span></article>
-          <article class="tool"><strong>Emociones</strong><span>Categorías afectivas expresadas en lenguaje.</span></article>
-          <article class="tool"><strong>Minería de texto</strong><span>Patrones, frecuencia y agrupamientos.</span></article>
-          <article class="tool"><strong>LIWC</strong><span>Diccionarios psicolingüísticos.</span></article>
-          <article class="tool"><strong>Clasificación</strong><span>Asignación de etiquetas entrenadas.</span></article>
-          <article class="tool"><strong>Embeddings</strong><span>Representación semántica del texto.</span></article>
-          <article class="tool"><strong>Transformers</strong><span>Modelos contextuales de lenguaje.</span></article>
-          <article class="tool"><strong>Journaling</strong><span>Registro digital para reflexión personal.</span></article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 11. Ética y límites -->
-    <section class="slide" data-title="Ética y límites">
-      <div class="frame risk-grid">
-        <div class="risk-mark" aria-hidden="true"><span>Ética<br>y límites</span></div>
-        <div class="stack">
-          <div class="kicker">Ética y límites</div>
-          <h2>El texto personal puede ser sensible.</h2>
-          <ul class="bullets">
-            <li>Riesgos de sesgo, error e interpretación fuera de contexto.</li>
-            <li>Necesidad de consentimiento, privacidad y transparencia.</li>
-            <li>Evitar lecturas clínicas simplificadas.</li>
-            <li>Plantear sistemas como apoyo reflexivo, no diagnóstico.</li>
+        <div class="two-column-list">
+          <ul class="bullets card note">
+            <li>Jóvenes, adolescentes, universitarios o poblaciones cercanas.</li>
+            <li>Lenguaje digital, escritura online, diarios, autorrevelación o feedback textual.</li>
+            <li>Claridad emocional, alexitimia, bienestar, autoconcepto o self-disclosure.</li>
+            <li>NLP, LIWC, SEANCE, sentimientos, topic modeling, embeddings, transformers, LLM o chatbots.</li>
+          </ul>
+          <ul class="bullets card note">
+            <li>Se excluyeron trabajos sin relación juvenil o educativa, salvo fuentes conceptuales centrales.</li>
+            <li>Se descartaron estudios donde el lenguaje era tangencial.</li>
+            <li>No se priorizaron textos clínicos sin componente lingüístico o computacional.</li>
+            <li>No se incluyeron blogs, páginas comerciales u opiniones sin método verificable.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- 12. Hallazgos preliminares -->
-    <section class="slide" data-title="Hallazgos">
-      <div class="frame">
+    <!-- 13. Extracción y síntesis -->
+    <section class="slide" data-title="Síntesis">
+      <div class="frame grid-2">
         <div class="stack">
-          <div class="kicker">Hallazgos preliminares</div>
-          <h2>Cinco ideas que orientan el avance.</h2>
+          <div class="kicker">Extracción y síntesis de datos</div>
+          <h2>La revisión priorizó convergencias, señales candidatas, técnicas, límites y brechas.</h2>
+          <p class="lead">No se compararon métricas de modelos porque los corpus, métodos y objetivos de los estudios son distintos.</p>
         </div>
-        <div class="findings">
-          <article class="finding"><strong>1</strong><p>El campo está fragmentado.</p></article>
-          <article class="finding"><strong>2</strong><p>El lenguaje digital juvenil tiene reglas propias.</p></article>
-          <article class="finding"><strong>3</strong><p>La claridad emocional es útil, pero requiere cuidado.</p></article>
-          <article class="finding"><strong>4</strong><p>Los marcadores lingüísticos son señales candidatas.</p></article>
-          <article class="finding"><strong>5</strong><p>El NLP apoya el análisis sin reemplazar el contexto humano.</p></article>
+        <div class="flow">
+          <article class="step"><strong>1</strong><h3>Matriz temática</h3><p>Título, resumen, palabras clave, población, método y hallazgos.</p></article>
+          <article class="step"><strong>2</strong><h3>Estudios centrales</h3><p>Fuentes que sostienen directamente una pregunta de revisión.</p></article>
+          <article class="step"><strong>3</strong><h3>Apoyo fuerte</h3><p>Trabajos que refuerzan una categoría, técnica o marcador.</p></article>
+          <article class="step"><strong>4</strong><h3>Contexto</h3><p>Fuentes que matizan, amplían o ejemplifican el fenómeno.</p></article>
         </div>
       </div>
     </section>
 
-    <!-- 13. Discusión -->
+    <!-- 14. PI1 -->
+    <section class="slide" data-title="PI1">
+      <div class="frame grid-2">
+        <div class="stack">
+          <div class="kicker">Resultados · PI1</div>
+          <h2>El lenguaje digital juvenil no es escritura deficiente.</h2>
+          <p class="lead">Funciona como un registro dinámico, multimodal y contextual, con reglas ajustadas a plataformas, interlocutores y grupos.</p>
+        </div>
+        <ul class="bullets card note">
+          <li>Rasgos léxicos y ortográficos: abreviaciones, textismos y riqueza léxica variable.</li>
+          <li>Adaptación pragmática: cambios según edad, relación e interlocutor.</li>
+          <li>Recursos multimodales: emojis, emoticonos y stickers para tono, humor o pertenencia.</li>
+          <li>Code-mixing y code-switching como parte de la construcción situada de significado.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 15. PI1 implicancia -->
+    <section class="slide" data-title="Digilecto">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Resultado comunicativo</div>
+          <h2>No existe un único “digilecto” juvenil.</h2>
+          <p class="lead">La evidencia sugiere subpatrones funcionales vinculados con oralidad, brevedad, compensación expresiva, pertenencia y acomodación comunicativa.</p>
+        </div>
+        <div class="compare">
+          <article class="quote-card">
+            <span class="title-band">Mirada deficitaria</span>
+            <blockquote>“Escriben mal porque usan redes.”</blockquote>
+            <p class="small">El artículo descarta una lectura automática de deterioro lingüístico.</p>
+          </article>
+          <article class="quote-card">
+            <span class="title-band">Mirada contextual</span>
+            <blockquote>“Alternan registros según situación e interlocutor.”</blockquote>
+            <p class="small">La mensajería digital no implica por sí sola transferencia negativa a la escritura formal.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16. PI2 -->
+    <section class="slide" data-title="PI2">
+      <div class="frame grid-2">
+        <div class="stack">
+          <div class="kicker">Resultados · PI2</div>
+          <h2>La autoexpresión digital depende de profundidad, propósito y respuesta social.</h2>
+          <p class="lead">Los entornos digitales pueden apoyar identidad, pertenencia y validación, pero también asociarse con comparación social, rumiación o uso problemático.</p>
+        </div>
+        <ul class="bullets card note">
+          <li>El self-disclosure online no tiene efecto único.</li>
+          <li>Puede abrir espacios relativamente seguros para identidades vigiladas socialmente.</li>
+          <li>Su valor depende de honestidad, pertinencia, contexto y respuesta recibida.</li>
+          <li>Debe interpretarse junto con bienestar, regulación emocional y dinámica social.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 17. Claridad emocional -->
+    <section class="slide" data-title="Claridad emocional">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Claridad emocional, lenguaje y alexitimia</div>
+          <h2>Poner en palabras lo que se siente no es una operación simple.</h2>
+        </div>
+        <div class="compare">
+          <article class="quote-card">
+            <span class="title-band">Expresión poco diferenciada</span>
+            <blockquote>“Me siento mal.”</blockquote>
+            <p class="small">La emoción aparece con baja precisión verbal y escasa diferenciación.</p>
+          </article>
+          <article class="quote-card">
+            <span class="title-band">Expresión elaborada</span>
+            <blockquote>“Estoy frustrado y ansioso por no avanzar.”</blockquote>
+            <p class="small">Hay mayor nombramiento, diferenciación y verbalización de la experiencia.</p>
+          </article>
+        </div>
+        <p class="small">La hipótesis lingüística de la alexitimia plantea que limitaciones en el desarrollo o uso del lenguaje pueden afectar la construcción y expresión de conceptos emocionales.</p>
+      </div>
+    </section>
+
+    <!-- 18. Matiz emocional -->
+    <section class="slide" data-title="Matices">
+      <div class="frame grid-2">
+        <div class="stack">
+          <div class="kicker">Matiz clave</div>
+          <h2>Más vocabulario emocional no siempre significa mayor claridad.</h2>
+          <p class="lead">La diferenciación emocional exige observar valencia, contexto, organización narrativa y uso adaptativo del lenguaje.</p>
+        </div>
+        <ul class="bullets card note">
+          <li>Una palabra negativa puede expresar claridad, queja, ironía o rumiación.</li>
+          <li>Un texto breve no indica necesariamente baja claridad emocional.</li>
+          <li>La autorreferencia puede ser estilo narrativo, foco personal o malestar general.</li>
+          <li>Por eso se habla de señales candidatas, no de biomarcadores definitivos.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 19. PI3 señales -->
+    <section class="slide" data-title="Señales">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Resultados · PI3</div>
+          <h2>Señales lingüísticas candidatas para análisis exploratorio.</h2>
+          <p class="lead">Su valor está en convertir fenómenos discursivos en variables analizables; su límite, en que ninguna funciona de forma aislada ni universal.</p>
+        </div>
+        <div class="tag-grid">
+          <div class="tag">Textismos y oralidad escrita</div>
+          <div class="tag">Code-mixing</div>
+          <div class="tag">Emojis y stickers</div>
+          <div class="tag">Pronombres de primera persona</div>
+          <div class="tag">Vocabulario emocional</div>
+          <div class="tag">Distancia lingüística</div>
+          <div class="tag">Coherencia narrativa</div>
+          <div class="tag">Diarios y escritura reflexiva</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 20. PI3 técnicas -->
+    <section class="slide" data-title="Técnicas">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Técnicas computacionales</div>
+          <h2>Del texto a datos analizables.</h2>
+          <p class="lead">La revisión no compara modelos; ordena herramientas según ventaja, limitación y uso recomendado.</p>
+        </div>
+        <div class="tools">
+          <article class="tool"><strong>LIWC</strong><span>Categorías psicolingüísticas interpretables: pronombres, emoción y procesos cognitivos.</span></article>
+          <article class="tool"><strong>SEANCE</strong><span>Sentimiento, cognición social y análisis afectivo más amplio.</span></article>
+          <article class="tool"><strong>Sentimientos</strong><span>Polaridad positiva o negativa como primer filtrado, no inferencia individual.</span></article>
+          <article class="tool"><strong>Topic modeling</strong><span>Temas recurrentes en feedback, reflexiones o respuestas abiertas.</span></article>
+          <article class="tool"><strong>Embeddings</strong><span>Representación semántica para similitud y agrupamiento textual.</span></article>
+          <article class="tool"><strong>Transformers</strong><span>Clasificación contextual cuando existe corpus validado.</span></article>
+          <article class="tool"><strong>LLM</strong><span>Preguntas reflexivas y retroalimentación con límites claros.</span></article>
+          <article class="tool"><strong>Chatbots</strong><span>Apoyo conversacional no clínico, con control de privacidad y seguridad.</span></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 21. PI4 límites -->
+    <section class="slide" data-title="Límites">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Resultados · PI4</div>
+          <h2>Los límites aparecen en cuatro niveles.</h2>
+        </div>
+        <div class="review-grid">
+          <article class="review-item"><strong>1</strong><h3>Metodológico</h3><p>Poblaciones, corpus, plataformas, idiomas y tareas son muy distintos entre estudios.</p></article>
+          <article class="review-item"><strong>2</strong><h3>Lingüístico-cultural</h3><p>Muchas herramientas nacen en inglés y fallan ante español, bilingüismo, ironía o code-switching.</p></article>
+          <article class="review-item"><strong>3</strong><h3>Ético</h3><p>Los textos personales exigen consentimiento, minimización de datos, seguridad y transparencia.</p></article>
+          <article class="review-item"><strong>4</strong><h3>Interpretativo</h3><p>Un patrón textual es una señal, no una conclusión sobre la vida emocional del estudiante.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 22. Discusión -->
     <section class="slide" data-title="Discusión">
       <div class="frame discussion">
         <div class="axis card note">
-          <div class="axis-row">
-            <span class="axis-label">Tecnología</span>
-            <div class="axis-bar"></div>
-          </div>
           <div class="axis-row">
             <span class="axis-label">Lenguaje</span>
             <div class="axis-bar"></div>
           </div>
           <div class="axis-row">
-            <span class="axis-label">Experiencia</span>
+            <span class="axis-label">Emoción</span>
+            <div class="axis-bar"></div>
+          </div>
+          <div class="axis-row">
+            <span class="axis-label">Tecnología</span>
             <div class="axis-bar"></div>
           </div>
         </div>
         <div class="stack">
           <div class="kicker">Discusión</div>
-          <h2>Conectar tecnología y experiencia humana.</h2>
+          <h2>La contribución está en integrar tres campos que suelen separarse.</h2>
           <ul class="bullets">
-            <li>El lenguaje digital juvenil no debe verse como ruido.</li>
-            <li>La claridad emocional no debe reducirse a una etiqueta clínica.</li>
-            <li>El NLP debe funcionar como herramienta de apoyo.</li>
-            <li>La autoridad interpretativa no puede depender solo del modelo.</li>
+            <li>El lenguaje digital juvenil no debe tratarse como ruido.</li>
+            <li>La claridad emocional no se reduce a una etiqueta clínica.</li>
+            <li>El NLP convierte texto en datos, pero no resuelve el problema interpretativo.</li>
+            <li>La autoridad final no puede depender solo del modelo.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- 14. Conclusiones -->
+    <!-- 23. Modelo conceptual -->
+    <section class="slide" data-title="Modelo conceptual">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Modelo conceptual propuesto</div>
+          <h2>Sistema de apoyo reflexivo no diagnóstico.</h2>
+        </div>
+        <div class="model">
+          <article class="model-step"><strong>1</strong><h3>Entrada voluntaria</h3><p>Diario, formulario reflexivo o espacio conversacional con consentimiento.</p></article>
+          <article class="model-step"><strong>2</strong><h3>Extracción</h3><p>Vocabulario emocional, pronombres, distancia, emojis o temas recurrentes.</p></article>
+          <article class="model-step"><strong>3</strong><h3>Visualización</h3><p>Tendencias temporales o categorías generales para autoobservación.</p></article>
+          <article class="model-step"><strong>4</strong><h3>Respuesta</h3><p>Preguntas o sugerencias de reflexión sin etiquetas clínicas.</p></article>
+          <article class="model-step"><strong>5</strong><h3>Seguridad</h3><p>Privacidad, canales humanos de apoyo y derivación ante contenido sensible.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 24. Brechas -->
+    <section class="slide" data-title="Brechas">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Brechas de investigación</div>
+          <h2>El campo necesita más integración, validación y evaluación.</h2>
+        </div>
+        <div class="findings">
+          <article class="finding"><strong>1</strong><p>Integrar lenguaje digital, claridad emocional y NLP en un mismo modelo.</p></article>
+          <article class="finding"><strong>2</strong><p>Validar diccionarios, modelos y marcadores en español y contextos latinoamericanos.</p></article>
+          <article class="finding"><strong>3</strong><p>Incorporar multimodalidad: emojis, stickers, memes y code-switching.</p></article>
+          <article class="finding"><strong>4</strong><p>Estudiar cambios longitudinales en lenguaje, reflexión y claridad emocional.</p></article>
+          <article class="finding"><strong>5</strong><p>Evaluar utilidad, seguridad y experiencia de sistemas reflexivos sin prometer eficacia clínica.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 25. Limitaciones -->
+    <section class="slide" data-title="Limitaciones">
+      <div class="frame grid-2">
+        <div class="stack">
+          <div class="kicker">Limitaciones de la revisión</div>
+          <h2>El alcance es defendible, pero no definitivo.</h2>
+          <p class="lead">La revisión ordena el campo y explicita cautelas, aunque no sustituye una revisión sistemática completa.</p>
+        </div>
+        <ul class="bullets card note">
+          <li>Scopus fue la única base de datos.</li>
+          <li>Los 20,598 resultados brutos no son artículos únicos.</li>
+          <li>El corpus de 88 estudios se seleccionó por pertinencia temática.</li>
+          <li>La síntesis se apoyó en títulos, resúmenes, palabras clave y lecturas focalizadas.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 26. Conclusiones -->
     <section class="slide" data-title="Conclusiones">
       <div class="frame">
         <div class="stack">
           <div class="kicker">Conclusiones</div>
-          <h2>El tema es viable como revisión.</h2>
+          <h2>Cuatro conclusiones sostienen el artículo.</h2>
         </div>
         <div class="conclusion-grid">
-          <article class="conclusion card"><p>La revisión de alcance es adecuada para mapear un tema disperso.</p></article>
-          <article class="conclusion card"><p>El aporte está en ordenar conceptos, señales, métodos y límites.</p></article>
-          <article class="conclusion card"><p>El análisis debe mantener una lectura contextual y responsable.</p></article>
-          <article class="conclusion card"><p>Una etapa posterior podría diseñar un sistema de apoyo reflexivo sustentado en evidencia.</p></article>
+          <article class="conclusion card"><p>El lenguaje digital juvenil contiene patrones comunicativos propios y no debe entenderse como escritura inferior.</p></article>
+          <article class="conclusion card"><p>Existen señales candidatas relacionadas con autoexpresión y claridad emocional, pero no pruebas diagnósticas individuales.</p></article>
+          <article class="conclusion card"><p>LIWC, SEANCE, sentimientos, minería de texto, transformers y LLM permiten analizar grandes volúmenes de escritura estudiantil.</p></article>
+          <article class="conclusion card"><p>La utilidad computacional depende de corpus adecuados, validación contextual, interpretabilidad y límites éticos.</p></article>
         </div>
       </div>
     </section>
 
-    <!-- 15. Cierre -->
+    <!-- 27. Referencias -->
+    <section class="slide" data-title="Referencias">
+      <div class="frame">
+        <div class="stack">
+          <div class="kicker">Referencias base</div>
+          <h2>La revisión se apoya en estudios de comunicación digital, emoción, NLP y sistemas reflexivos.</h2>
+          <p class="lead">La lista completa permanece en el artículo; aquí se agrupan las fuentes más visibles en la argumentación.</p>
+        </div>
+        <div class="reference-cloud">
+          <span>Hilte et al. (2020, 2021)</span>
+          <span>Verheijen & Spooren (2021)</span>
+          <span>Montes-Alcalá (2024)</span>
+          <span>Shing (2025)</span>
+          <span>Chu & Jiang (2022)</span>
+          <span>Chan et al. (2026)</span>
+          <span>Hobson et al. (2019)</span>
+          <span>Lee et al. (2022, 2025)</span>
+          <span>Tackman et al. (2019)</span>
+          <span>Nook et al. (2017)</span>
+          <span>Park et al. (2016)</span>
+          <span>Crossley et al. (2017)</span>
+          <span>Kahn et al. (2007)</span>
+          <span>Kastrati et al. (2021)</span>
+          <span>Menekse et al. (2025)</span>
+          <span>Nepal et al. (2024)</span>
+          <span>Ren et al. (2025)</span>
+          <span>Tricco et al. (2018)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 28. Cierre -->
     <section class="slide" data-title="Cierre">
       <div class="closing">
         <div class="kicker" style="color: rgba(255,255,255,0.76); margin-bottom: 20px;">Cierre</div>
-        <p>“El objetivo no es diagnosticar emociones desde el texto, sino analizar cómo el lenguaje digital juvenil puede aportar señales útiles para la reflexión y el análisis computacional responsable.”</p>
+        <p>El resultado más sólido no es diagnosticar emociones desde el texto, sino diseñar análisis responsables que ayuden a observar patrones, abrir reflexión y respetar el contexto humano.</p>
       </div>
     </section>
   </main>
 
-  <div class="progress" id="progress">1 / 15</div>
+  <div class="progress" id="progress">1 / 28</div>
   <div class="progress-bar" aria-hidden="true">
     <div class="progress-fill" id="progressFill"></div>
   </div>
@@ -985,6 +1398,20 @@
     const progress = document.getElementById("progress");
     const progressFill = document.getElementById("progressFill");
     let currentSlide = 0;
+
+    function getHashSlide() {
+      const params = new URLSearchParams(window.location.hash.slice(1));
+      const requestedSlide = Number.parseInt(params.get("slide"), 10);
+      if (Number.isNaN(requestedSlide)) return 0;
+      return Math.max(0, Math.min(requestedSlide - 1, slides.length - 1));
+    }
+
+    function setUrlSlide() {
+      const nextHash = `slide=${currentSlide + 1}`;
+      if (window.location.hash.slice(1) !== nextHash) {
+        history.replaceState(null, "", `#${nextHash}`);
+      }
+    }
 
     function showSlide(nextIndex) {
       const boundedIndex = Math.max(0, Math.min(nextIndex, slides.length - 1));
@@ -998,6 +1425,7 @@
       slides[currentSlide].classList.remove("previous");
       slides[currentSlide].classList.add("active");
       updateProgress();
+      setUrlSlide();
     }
 
     function updateProgress() {
@@ -1016,7 +1444,13 @@
       }
     });
 
+    currentSlide = getHashSlide();
+    slides.forEach((slide, index) => {
+      slide.classList.toggle("active", index === currentSlide);
+      slide.classList.remove("previous");
+    });
     updateProgress();
+    setUrlSlide();
   </script>
 </body>
 </html>
